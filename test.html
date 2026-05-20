@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+</head>
+<body>
+  <script>
+    const cashfree = Cashfree({ mode: "sandbox" });
+
+    cashfree.checkout({
+      paymentSessionId: "session_tcbt7L8XFtlGT7aRUoYJUNNc0qRNLfmLAq3y7jPMyf_MhIS13JkQo7AB5snl4n1orIv963Y4qqIhF1jzMHCroqs4fHVyJtk8tZTKcGHT22hCQPRSmJMGbzbLrmW9BQ",
+      redirectTarget: "_self",
+    });
+  </script>
+</body>
+</html>
