@@ -22,13 +22,13 @@ exports.register = async (req, res) => {
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       //secure: process.env.NODE_ENV === "production",
-      secure:"true",
+      secure:true,
       sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
-      secure: "true",
+      secure: true,
       sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 15 min
     });
@@ -83,13 +83,13 @@ exports.login = async (req, res) => {
     await user.save({ validateBeforeSave: false });
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      secure:  "true",
+      secure:  true,
       sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
-      secure:  "true",
+      secure:  true,
       sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000, 
     });
@@ -195,8 +195,14 @@ exports.logout = async (req, res) => {
   user.refreshToken = undefined;
   await user.save({ validateBeforeSave: false });
 
-  res.clearCookie("accessToken");
-  res.clearCookie("refreshToken");
+  const cookieOptions = {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+  };
+
+  res.clearCookie("accessToken", cookieOptions);
+  res.clearCookie("refreshToken", cookieOptions);
 
   res.status(200).json({ message: "Logged out successfully" });
 };
