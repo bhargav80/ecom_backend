@@ -21,14 +21,15 @@ exports.register = async (req, res) => {
     await user.save({ validateBeforeSave: false });
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      //secure: process.env.NODE_ENV === "production",
+      secure:"true",
+      sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      secure: "true",
+      sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 15 min
     });
     res.status(201).json({
@@ -82,14 +83,14 @@ exports.login = async (req, res) => {
     await user.save({ validateBeforeSave: false });
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      secure:  "true",
+      sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      secure:  "true",
+      sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000, 
     });
 

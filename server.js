@@ -60,7 +60,9 @@ app.use("/api/orders",orderRoutes);
 app.use("/api/paymentRoutes",paymentRoutes);
 app.use("/api/vendor", vendorRoutes);
 app.use("/api/admin",adminRoutes);
-
+app.get("/", (req, res) => {
+  res.send("Backend Running");
+});
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`App running on port ${port}...`);
