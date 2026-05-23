@@ -28,14 +28,36 @@ app.use(
   orderRoutes
 );
 app.use(cookieParser());
-app.use(
-  cors({
-    origin: ["http://localhost:5173", process.env.FRONTEND_URL],
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
-  }),
-);
+// app.use(
+//   cors({
+//     origin: ["http://localhost:5173", process.env.FRONTEND_URL],
+//     credentials: true,
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//   }),
+// );
 
+const allowedOrigins = [
+  'http://localhost:3000',                  // Local React
+  'http://localhost:5173',                  // Local Vite
+  'https://ecom-frontend-gamma-ten.vercel.app' // Your Production Vercel Frontend
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps, curl, or Postman)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Blocked by CORS policy'));
+    }
+  },
+  credentials: true, // Crucial for passing HttpOnly cookies
+  optionsSuccessStatus: 200 // Fixes preflight issues on older browsers/gateways
+};
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
