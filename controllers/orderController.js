@@ -351,7 +351,7 @@ exports.checkout = async (req, res) => {
           },
           order_meta: {
             notify_url:
-              "https://a0a4-2409-40e6-137-1afa-b56e-494e-b8e-8c08.ngrok-free.app/api/paymentRoutes/webhook/cashfree",
+              `${process.env.BACKEND_BASE_URL}/api/paymentRoutes/webhook/cashfree`,
             return_url:
               "http://localhost:5173/payment-status?order_id={order_id}",
           },
